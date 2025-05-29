@@ -29,12 +29,22 @@ app.use(express.json())
 const baseConsolidada = {}
 
 const funcoes = {
-  LembreteCriado: (lembrete) => {},
-  ObservacaoCriada: (observacao) => {}
+  LembreteCriado: (lembrete) => {
+    //acessar a baseConsolidada na "posição" id e associar a ela o próprio lembrete
+    baseConsolidada[lembrete.id] = lembrete
+  },
+  ObservacaoCriada: (observacao) => {
+    const observacoes = baseConsolidada[lembrete.id]['observacoes']  || []
+    observacoes.push(observacao)
+    baseConsolidada[observacao.idLembrete]['observacoes'] = observacoes
+
+  }
 }
 
 app.post('/eventos', (req, res) => {
   const evento = req.body
+  //acessar o mapa de funções. a posição a ser acessada é o tipo do evento e passar como parâmetro os dados
+  
   console.log(evento)
   res.end()
 })
