@@ -16,6 +16,14 @@ app.post('/eventos', async (req, res) => {
     await axios.post('http://localhost:5000/eventos', evento)
   }
   catch(e){}
+  //avisar o mss de consulta sobre o evento que aconteceu agora
+  //ja tratando potenciais erros
+  try{
+    await axios.post('http://localhost:6000/eventos', evento)
+  }
+  catch(e){}
+
+
   res.end()
 })
 
